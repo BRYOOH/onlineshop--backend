@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 //Connect to MongoDB
-mongoose.connect("");
+mongoose.connect("mongodb+srv://brianmuchira001:Muriukis@cluster0.c8atalq.mongodb.net/Ecommerce");
 //Connect with Mongo atlas to abtain the key
 
 
