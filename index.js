@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const { type } = require("os");
 
 app.use(express.json());
 app.use(cors());
@@ -122,6 +123,27 @@ app.get('/allproducts', async (req,res)=>{
     console.log("All products fetched");
     res.send(products);
 
+})
+
+//User Schema
+const Users = mongoose.model(Users , {
+    name:{
+        type:String,
+    },
+    email:{
+        type:String,
+        unique:true,
+    },
+    password:{
+        type:String,
+    },
+    cartData:{
+        type:Object,
+    },
+    date:{
+        type:Date,
+        default:Date.now,
+    },
 })
 
 app.listen(port,(error)=>{
