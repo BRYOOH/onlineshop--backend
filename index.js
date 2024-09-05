@@ -124,6 +124,13 @@ app.get('/allproducts', async (req,res)=>{
     res.send(products);
 
 })
+//API for get new collections
+app.get('/newcollection',async (req,res)=>{
+    let products = await Product.find({});
+    let newCollection = products.slice(1).slice(-8);
+    console.log('New collections fetched');
+    res.send(newCollection);
+})
 
 //User Schema
 const Users = mongoose.model("Users" , {
@@ -190,7 +197,7 @@ let user = await Users.findOne({email:req.body.email});
              const token = jwt.sign(data,'secret_ecom');
              res.json({success:true,token});
         }
-        else{
+        else{ 
             res.json({success:false, errors:"Wrong password"})
         }
     }
