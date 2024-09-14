@@ -131,6 +131,13 @@ app.get('/newcollection',async (req,res)=>{
     console.log('New collections fetched');
     res.send(newCollection);
 })
+//API for popular in women
+app.get('/popularinwomen',async(req,res)=>{
+    let product = await Product.find({category:"women"});
+    let popularInWomen = product.slice(0,4);
+    console.log('Popular in women fetched');
+    res.send(popularInWomen);
+})
 
 //User Schema
 const Users = mongoose.model("Users" , {
