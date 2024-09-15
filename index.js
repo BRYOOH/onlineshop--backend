@@ -139,7 +139,10 @@ app.get('/popularinwomen',async(req,res)=>{
     res.send(popularInWomen);
 })
 //Middleware to fetch the user
-const fetchUser = async(req,next,res) => {
+
+//API for cartItems
+app.post('/addtocart' , async(req,res,next)=>{
+    
     const token = req.header('auth-token');
     if(!token){
         res.status(401).send({errors:"Please authenticate using valid token"})
@@ -153,11 +156,8 @@ const fetchUser = async(req,next,res) => {
           res.status(401).send({errors:"Please authenticate using valid token"})
         } 
     }
-}
 
-//API for cartItems
-app.post('/addtocart' ,fetchUser, async(req,res)=>{
-console.log(req.body, req.user);
+    console.log(req.body, req.user);
 
 })
 
