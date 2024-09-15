@@ -7,6 +7,7 @@ const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const { type } = require("os");
+const { log } = require("console");
 
 app.use(express.json());
 app.use(cors());
@@ -138,6 +139,28 @@ app.get('/popularinwomen',async(req,res)=>{
     console.log('Popular in women fetched');
     res.send(popularInWomen);
 })
+//Middleware to fetch the user
+const fetchUser = async(req,next,res) => {
+    const token = req.header('auth-token');
+    if(!token){
+        res.status(401).send({errors:"Please authenticate using valid token"})
+    }
+    else{
+        try {
+            const data= jwt.verify(token,'secret_ecom');
+            req.user = data.user;
+            next();
+        } catch (error) {
+          res.status(401).send({errors:"Please authenticate using valid token"})
+        } 
+    }
+}
+
+//API for cartItems
+app.post('/addtocart' ,fetchUser, async(req,res)=>{
+console.log(req.body, req.user);
+
+})
 
 //User Schema
 const Users = mongoose.model("Users" , {
@@ -212,7 +235,7 @@ let user = await Users.findOne({email:req.body.email});
         res.json({success:false, errors:"Wrong user email"})
     }
 })
-
+ 
 app.listen(port,(error)=>{
     if(!error){
         console.log("Server running on port: " +port);
