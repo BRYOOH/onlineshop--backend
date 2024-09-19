@@ -1,4 +1,5 @@
-const port = 4000;
+
+const port = process.env.PORT||4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -11,8 +12,10 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+require('dotenv').config();
+
 //Connect to MongoDB
-mongoose.connect("mongodb+srv://brianmuchira001:Muriukis@cluster0.c8atalq.mongodb.net/Ecommerce");
+mongoose.connect(process.env.DB_KEY);
 //Connect with Mongo atlas to abtain the key
 
 
