@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-const cors = require("cors");
-
+/*const cors = require("cors");
+app.use(cors());*/
 
 app.use(express.json());
-app.use(cors());
+
 
 require('dotenv').config();
 
