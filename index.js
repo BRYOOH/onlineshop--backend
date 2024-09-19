@@ -6,10 +6,26 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-/*const cors = require("cors");
-app.use(cors());*/
+const cors = require("cors");
+
+const allowedOrigins = [
+    'https://ecommerce-muchira.netlify.app',
+    'https://admincommerce.netlify.app/addproduct'
+  ];
 
 app.use(express.json());
+
+const corsOptions = {
+    origin: function (origin, callback) {
+      // Check if the request origin is in the allowedOrigins array or is undefined (for server-to-server communication)
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error('Not allowed by CORS')); // Block the request
+      }
+    }
+  };
+app.use(cors({ origin: corsOptions }));
 
 
 require('dotenv').config();
